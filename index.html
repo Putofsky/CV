@@ -19,58 +19,62 @@
       flex-wrap: wrap;
     }
 
-    .left, .right {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-
     .left {
       background-color: #1e1e1e;
       flex: 1;
       min-width: 250px;
       padding: 2rem;
-      animation-delay: 0.2s;
     }
 
     .right {
       flex: 2;
-      padding: 2rem;
+      padding: 3rem;
+      padding-top: 2rem;
       animation-delay: 0.4s;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
       color: white;
+      font-weight: 700;
+      line-height: 1.2;
     }
 
     h2 {
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      color: #aaaaaa;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      color: #b3b3b3;
+      margin-bottom: 1.5rem;
       text-transform: uppercase;
     }
 
     .section-title {
-      margin-top: 2rem;
-      font-weight: 500;
+      margin-top: 2.5rem;
+      font-weight: 600;
+      font-size: 1.2rem;
       position: relative;
       display: inline-block;
+      color: #ffffff;
     }
 
     .section-title::after {
       content: "";
       display: block;
-      height: 3px;
+      height: 2px;
       width: 40px;
       background-color: #5a5a5a;
       margin-top: 5px;
     }
 
     .info-block {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .bold {
@@ -79,7 +83,9 @@
     }
 
     ul {
-      padding-left: 1rem;
+      padding-left: 1.5rem;
+      list-style-type: disc;
+      margin-top: 0.5rem;
     }
 
     a {
@@ -106,22 +112,31 @@
       .container {
         flex-direction: column;
       }
+
+      .right {
+        padding: 1.5rem;
+      }
     }
 
     .motivation-letter {
-      margin-top: 2rem;
-      background-color: #1e1e1e;
-      padding: 2rem;
-      border-radius: 8px;
+      margin-top: 3rem;
+      background-color: #262626;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .motivation-letter h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: white;
     }
 
     .motivation-letter p {
+      font-size: 1rem;
       line-height: 1.6;
+      color: #b3b3b3;
     }
   </style>
 </head>
