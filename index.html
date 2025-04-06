@@ -19,16 +19,24 @@
       flex-wrap: wrap;
     }
 
+    .left, .right {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
     .left {
       background-color: #1e1e1e;
       flex: 1;
       min-width: 250px;
       padding: 2rem;
+      animation-delay: 0.2s;
     }
 
     .right {
       flex: 2;
       padding: 2rem;
+      animation-delay: 0.4s;
     }
 
     h1 {
@@ -83,10 +91,37 @@
       margin-right: 0.5rem;
     }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
       }
+    }
+
+    .motivation-letter {
+      margin-top: 2rem;
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 8px;
+    }
+
+    .motivation-letter h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .motivation-letter p {
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -140,6 +175,19 @@
       <p><strong>Langues :</strong> Anglais – Bon niveau (sans certification)</p>
       <p><strong>Programmation :</strong> Python, C++, R</p>
       <p><strong>Mathématiques :</strong> Statistiques, ÉDP, Probabilités</p>
+    </div>
+
+    <!-- Lettre de motivation -->
+    <div class="motivation-letter">
+      <h3>Lettre de Motivation</h3>
+      <p>
+        Madame, Monsieur,<br><br>
+        Passionné par les mathématiques appliquées et l'informatique, je suis actuellement étudiant en Master d'Ingénierie Mathématique et je recherche une alternance dans le domaine de l'analyse des données et du machine learning. Mon parcours m'a permis d'acquérir des compétences solides en programmation et en modélisation mathématique, que je souhaiterais mettre à profit au sein de votre équipe.<br><br>
+        Rigoureux, autonome et doté d’un excellent esprit d’analyse, je suis motivé par l’idée de relever de nouveaux défis dans un environnement stimulant. Mon expérience en tant qu’équipier polyvalent m’a appris à travailler efficacement en équipe et à m’adapter rapidement aux besoins de l’entreprise.<br><br>
+        Je serais ravi de discuter de mes compétences et de mon projet professionnel lors d’un entretien. Je vous remercie par avance pour l’attention que vous porterez à ma candidature.<br><br>
+        Veuillez agréer, Madame, Monsieur, l’expression de mes salutations distinguées.<br><br>
+        Thomas Pichard
+      </p>
     </div>
   </div>
 </div>
