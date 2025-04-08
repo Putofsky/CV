@@ -1,239 +1,48 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CV – Thomas Pichard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-    }
+<script>
+  const canvas = document.getElementById('heatCanvas');
+  const ctx = canvas.getContext('2d');
+  const size = 30;
+  const grid = Array(size).fill().map(() => Array(size).fill(0));
 
-    .container {
-      display: flex;
-      min-height: 100vh;
-      flex-wrap: wrap;
-    }
+  // Init chaleur au centre
+  grid[Math.floor(size/2)][Math.floor(size/2)] = 255;
 
-    .left {
-      background-color: #1e1e1e;
-      flex: 1;
-      min-width: 250px;
-      padding: 2rem;
-      animation: fadeInLeft 1s forwards;
-    }
-
-    .right {
-      flex: 2;
-      padding: 3rem;
-      padding-top: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards 0.4s;
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: white;
-      font-weight: 700;
-      line-height: 1.2;
-      animation: fadeInFromLeft 0.8s forwards 0.2s;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      letter-spacing: 0.1em;
-      color: #b3b3b3;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      animation: fadeInFromLeft 0.8s forwards 0.3s;
-    }
-
-    .section-title {
-      margin-top: 2.5rem;
-      font-weight: 600;
-      font-size: 1.2rem;
-      position: relative;
-      display: inline-block;
-      color: #ffffff;
-      opacity: 0;
-      animation: fadeInFromLeft 0.8s forwards 0.5s;
-    }
-
-    .section-title::after {
-      content: "";
-      display: block;
-      height: 2px;
-      width: 40px;
-      background-color: #5a5a5a;
-      margin-top: 5px;
-    }
-
-    .info-block {
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeInUp 0.8s forwards;
-    }
-
-    .bold {
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    ul {
-      padding-left: 1.5rem;
-      list-style-type: disc;
-      margin-top: 0.5rem;
-    }
-
-    a {
-      color: #9ecbff;
-      text-decoration: none;
-    }
-
-    .contact-icon {
-      margin-right: 0.5rem;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+  function updateGrid() {
+    const newGrid = grid.map(arr => arr.slice());
+    for (let i = 1; i < size - 1; i++) {
+      for (let j = 1; j < size - 1; j++) {
+        newGrid[i][j] = (
+          grid[i][j] +
+          grid[i-1][j] +
+          grid[i+1][j] +
+          grid[i][j-1] +
+          grid[i][j+1]
+        ) / 5;
       }
     }
-
-    @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
+    for (let i = 1; i < size - 1; i++) {
+      for (let j = 1; j < size - 1; j++) {
+        grid[i][j] = newGrid[i][j];
       }
     }
+  }
 
-    @keyframes fadeInFromLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .right {
-        padding: 1.5rem;
+  function drawGrid() {
+    const cellSize = canvas.width / size;
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+        const value = grid[i][j];
+        ctx.fillStyle = `rgb(${value}, 50, 100)`;
+        ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
       }
     }
+  }
 
-    .motivation-letter {
-      margin-top: 3rem;
-      background-color: #262626;
-      padding: 2.5rem;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
+  function loop() {
+    updateGrid();
+    drawGrid();
+    requestAnimationFrame(loop);
+  }
 
-    .motivation-letter h3 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      color: white;
-    }
-
-    .motivation-letter p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #b3b3b3;
-    }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <!-- Colonne gauche -->
-  <div class="left">
-    <h2>Profil</h2>
-    <p>
-      Rigoureux et autonome, passionné par les mathématiques et l’informatique, je suis prêt à enrichir mon expérience professionnelle et relever de nouveaux défis.
-    </p>
-
-    <h2>Contact</h2>
-    <p><span class="contact-icon">📍</span>262 rue de Suzon, Talence</p>
-    <p><span class="contact-icon">✉️</span><a href="mailto:thomas.pichard@etu.u-bordeaux.fr">thomas.pichard@etu.u-bordeaux.fr</a></p>
-    <p><span class="contact-icon">📱</span>06 09 39 15 02</p>
-    <p><span class="contact-icon">🚗</span>Permis B</p>
-
-    <h2>Centres d’intérêt</h2>
-    <p><strong>Sports :</strong> Surf, Musculation</p>
-    <p><strong>Voyages :</strong> Japon, Italie</p>
-  </div>
-
-  <!-- Colonne droite -->
-  <div class="right">
-    <h1>Thomas Pichard</h1>
-    <h2>Alternance</h2>
-
-    <div class="info-block">
-      <span class="section-title">Formation</span>
-      <p><strong>2020</strong> – Bac S mention Bien</p>
-      <p><strong>2024</strong> – Licence d’ingénierie mathématique</p>
-      <p><strong>2025</strong> – Master 1 : Image, optimisation des données, machine learning</p>
-    </div>
-
-    <div class="info-block">
-      <span class="section-title">Expériences</span>
-      <p><strong>2020 – 2022</strong> – Macdo</p>
-      <p><strong>Équipier polyvalent en restauration rapide</strong></p>
-      <ul>
-        <li>Travail efficace dans un environnement dynamique</li>
-        <li>Bonne communication en équipe</li>
-        <li>Respect des normes d’hygiène</li>
-        <li>Accueil client et gestion des besoins</li>
-      </ul>
-    </div>
-
-    <div class="info-block">
-      <span class="section-title">Compétences</span>
-      <p><strong>Langues :</strong> Anglais – Bon niveau (sans certification)</p>
-      <p><strong>Programmation :</strong> Python, C++, R</p>
-      <p><strong>Mathématiques :</strong> Statistiques, ÉDP, Probabilités</p>
-    </div>
-
-    <!-- Lettre de motivation -->
-    <div class="motivation-letter">
-      <h3>Lettre de Motivation</h3>
-      <p>
-        Madame, Monsieur,<br><br>
-        Passionné par les mathématiques appliquées et l'informatique, je suis actuellement étudiant en Master d'Ingénierie Mathématique et je recherche une alternance dans le domaine de l'analyse des données et du machine learning. Mon parcours m'a permis d'acquérir des compétences solides en programmation et en modélisation mathématique, que je souhaiterais mettre à profit au sein de votre équipe.<br><br>
-        Rigoureux, autonome et doté d’un excellent esprit d’analyse, je suis motivé par l’idée de relever de nouveaux défis dans un environnement stimulant. Mon expérience en tant qu’équipier polyvalent m’a appris à travailler efficacement en équipe et à m’adapter rapidement aux besoins de l’entreprise.<br><br>
-        Je serais ravi de discuter de mes compétences et de mon projet professionnel lors d’un entretien. Je vous remercie par avance pour l’attention que vous porterez à ma candidature.<br><br>
-        Veuillez agréer, Madame, Monsieur, l’expression de mes salutations distinguées.<br><br>
-        Thomas Pichard
-      </p>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
+  loop();
+</script>
